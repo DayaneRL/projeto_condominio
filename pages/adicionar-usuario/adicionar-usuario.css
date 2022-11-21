@@ -1,0 +1,56 @@
+.content{
+    display: flex;
+    justify-content: center;
+    min-height: 0 !important;
+}
+
+.card{
+    max-width: 500px;
+}
+
+.m-0{
+    margin: 0;
+}
+
+#usuario-form label{
+    font-family: Verdana, sans-serif;
+    padding: 0 5px;
+    margin: 5px;
+}
+
+#usuario-form input{
+    color: #000;
+    font-size: 13px;
+    background-color: #e6e6e6;
+    width: 95%;
+    height: 32px;
+    padding: 0 5px;
+    margin: 5px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+#usuario-form input:focus{
+    border: 1px solid #556270 !important;
+    border-radius: 3px;
+    outline:#556270;
+}
+
+#send{
+    width: 99%;
+    height: 32px;
+    background-color: #e4a691;
+    border:0;
+    border-radius: 3px;
+    color:#fff;
+    -webkit-transition: all .4s;
+    -o-transition: all .4s;
+    -moz-transition: all .4s;
+    transition: all .4s;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin: 20px 5px 0 5px;
+}
+#send:hover{
+    background-color: #e4bbae  ;
+}
