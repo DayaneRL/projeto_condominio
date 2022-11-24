@@ -10,17 +10,24 @@
     <link href="relatorio.css" rel="stylesheet"/>
 </head>
 <body>
+    <?php 
+		require_once "../../../vendor/autoload.php";
+	?>
     <ul class="sidenav">
-        <li><a href="/projeto_condominio/pages">Início</a></li>
-        <li><a class="active" href="/projeto_condominio/pages/relatorios">Relatórios</a></li>
-        <li><a href="/projeto_condominio/pages/configuracao">Configuração</a></li>
-        <li><a href="/projeto_condominio/pages/adicionar-usuario">Cadastrar</a></li>
+        <li><a href="/projeto_condominio/app/views">Início</a></li>
+        <li><a class="active" href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
+        <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
+        <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
         <li><a href="#" id="logout">Sair</a></li>
     </ul>
     <div class="content">
         <div class="card">
             <div class="filters">
                 <h3 class="title">RELATORIO MENSAL</h3>
+                <?php
+                    $relatorio = new App\model\Relatorio();
+                    $relatorio->setNumeroCasa(1);
+                ?>
                 <form action="" method="">
                     <span>Filtros: </span>
                     <select name="filtro" id="filter">
@@ -43,27 +50,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>9m³</td>
-                        <td>R$ 90</td>
-                        <td>1 kw</td>
-                        <td>R$ 10</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>20m³</td>
-                        <td>R$ 200</td>
-                        <td>1 kw</td>
-                        <td>R$ 10</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>1m³</td>
-                        <td>R$ 10</td>
-                        <td>8 kw</td>
-                        <td>R$ 80</td>
-                    </tr>
+                    <?php
+                        $controller = new \App\controller\relatorioController();
+                        foreach($controller->relatorioGeral() as $row){
+                            $valor_agua = $row['consumo_agua'] * 3.06;
+                            $valor_energia = $row['consumo_energia'] * 0.065;
+                            echo '<tr>
+                                <td>'.$row['id_casa'].'</td>
+                                <td>'.$row['consumo_agua']. ' m³</td>
+                                <td>R$'.$valor_agua.'</td>
+                                <td>'.$row['consumo_energia'].' kWh</td>
+                                <td>R$'.$valor_energia.'</td>
+                            </tr>';
+                        }
+                    ?>
                 </tbody>
             </table>
         </div>

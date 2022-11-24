@@ -31,3 +31,8 @@
     </div>
 </body>
 </html>
+<script>
+    function entrar(){
+        window.location = '/projeto_condominio/pages';
+    }
+</script>
