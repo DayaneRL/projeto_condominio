@@ -10,8 +10,13 @@
 <body>
     <div class="container"> 
         <div class="wrap-login">
-            <form action="" method="">
+            <form action="/projeto_condominio/modal/login.php" method="GET">
                 <h3 class="login-title">LOGIN</h3>
+
+                <?php if (isset($_GET['error'])) { ?>
+                    <p class="login-error"><?php echo $_GET['error']; ?></p>
+                <?php } ?>
+
                 <div class="wrap-input" data-validate="Username is required">
                     <input class="input" type="text" name="username" placeholder="Username">
                 </div>
@@ -19,15 +24,10 @@
                     <input class="input" type="password" name="pass" placeholder="Password">
                 </div>
                 <div class="login-btn">
-                    <button type="button" class="login-form-btn" onclick="entrar()">Login</button>
+                    <button type="submit" class="login-form-btn">Login</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
 </html>
-<script>
-    function entrar(){
-        window.location = '/projeto_condominio/pages';
-    }
-</script>
