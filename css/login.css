@@ -4,13 +4,12 @@ body{
 }
 
 .container{
-    width: 98%;
+    width: 100%;
     min-height: 100vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 15px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -22,8 +21,7 @@ body{
     background: #fff;
     border-radius: 10px;
     position: relative;
-    padding-bottom: 15%;
-    padding-top: 5%;
+    padding-bottom: 13%;
 }
 
 .login-error {

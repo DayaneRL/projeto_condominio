@@ -8,9 +8,18 @@
     <title>Login</title>
 </head>
 <body>
+    <?php 
+		require_once "vendor/autoload.php";
+	?>
     <div class="container"> 
         <div class="wrap-login">
-            <form action="/projeto_condominio/modal/login.php" method="GET">
+            <?php
+                $controller = new \App\controller\usuarioController();
+                if (isset($_POST['username']) && isset($_POST['pass'])) {
+                    $controller->login();
+                }
+            ?> 
+            <form action="" method="POST">
                 <h3 class="login-title">LOGIN</h3>
 
                 <?php if (isset($_GET['error'])) { ?>
@@ -31,8 +40,3 @@
     </div>
 </body>
 </html>
-<script>
-    function entrar(){
-        window.location = '/projeto_condominio/pages';
-    }
-</script>
