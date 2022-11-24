@@ -24,10 +24,6 @@
         <div class="card">
             <div class="filters">
                 <h3 class="title">RELATORIO MENSAL</h3>
-                <?php
-                    $relatorio = new App\model\Relatorio();
-                    $relatorio->setNumeroCasa(1);
-                ?>
                 <form action="" method="">
                     <span>Filtros: </span>
                     <select name="filtro" id="filter">
