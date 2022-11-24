@@ -28,6 +28,6 @@
 </html>
 <script>
     function entrar(){
-        window.location = '/projeto_condominio/pages';
+        window.location = '/projeto_condominio/app/views';
     }
 </script>

@@ -11,10 +11,10 @@
 </head>
 <body>
     <ul class="sidenav">
-        <li><a href="/projeto_condominio/views">Início</a></li>
-        <li><a href="/projeto_condominio/views/relatorios">Relatórios</a></li>
-        <li><a href="/projeto_condominio/views/configuracao">Configuração</a></li>
-        <li><a class="active" href="/projeto_condominio/views/adicionar-usuario">Cadastrar</a></li>
+        <li><a href="/projeto_condominio/app/views">Início</a></li>
+        <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
+        <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
+        <li><a href="/projeto_condominio/app/views/adicionar-usuario" class="active">Cadastrar</a></li>
         <li><a href="#" id="logout">Sair</a></li>
     </ul>
     <div class="content">

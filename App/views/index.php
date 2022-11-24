@@ -10,10 +10,10 @@
 </head>
 <body>
     <ul class="sidenav">
-        <li><a class="active" href="/projeto_condominio/views">Início</a></li>
-        <li><a href="/projeto_condominio/views/relatorios">Relatórios</a></li>
-        <li><a href="/projeto_condominio/views/configuracao">Configuração</a></li>
-        <li><a href="/projeto_condominio/views/adicionar-usuario">Cadastrar</a></li>
+        <li><a class="active" href="/projeto_condominio/app/views">Início</a></li>
+        <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
+        <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
+        <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">
@@ -24,7 +24,7 @@
                         <img src="../images/report.png" alt="relatorio icon" />
                     </div>
                     <p class="title">Acessar relatorios mensais, semanais e anuais.</p>
-                    <a href="/projeto_condominio/pages/relatorios">VER relatorios</a>
+                    <a href="/projeto_condominio/app/views/relatorios">VER relatorios</a>
                 </div>
             </div>
             <div class="col-3 col-m-6">
@@ -33,7 +33,7 @@
                         <img src="../images/gear.png" alt="relatorio icon" />
                     </div>
                     <p class="title">Acessar configuração.</p>
-                    <a href="/projeto_condominio/pages/configuracao">Acessar</a>
+                    <a href="/projeto_condominio/app/views/configuracao">Acessar</a>
                 </div>
             </div>
             <div class="col-3 col-m-6">
@@ -42,7 +42,7 @@
                         <img src="../images/add-user.png" alt="relatorio icon" />
                     </div>
                     <p class="title">Acessar cadastro de usuários.</p>
-                    <a href="/projeto_condominio/pages/adicionar-usuario">acessar</a>
+                    <a href="/projeto_condominio/app/views/adicionar-usuario">acessar</a>
                 </div>
             </div>
         </div>
