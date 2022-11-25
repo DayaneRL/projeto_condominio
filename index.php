@@ -22,8 +22,8 @@
             <form action="" method="POST">
                 <h3 class="login-title">LOGIN</h3>
 
-                <?php if (isset($_GET['error'])) { ?>
-                    <p class="login-error"><?php echo $_GET['error']; ?></p>
+                <?php if (isset($_SESSION['error'])) { ?>
+                    <p class="login-error"><?php echo $_SESSION['error']; ?></p>
                 <?php } ?>
 
                 <div class="wrap-input" data-validate="Username is required">

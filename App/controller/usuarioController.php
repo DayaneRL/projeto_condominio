@@ -14,21 +14,24 @@
             $usuario = $tmp->fetchAll(\PDO::FETCH_ASSOC);
 
             if($email == null || $senha == null){
-                header("Location: /projeto_condominio/?error=Usuário ou senha não preenchidos");
-                exit;
+                session_start();
+                $_SESSION['error'] = "Usuário ou senha não preenchidos";
+                return false;
             }
 
             if(isset($usuario[0]['email'])){
-                if($usuario[0]['email'] == $email){
+                if(($usuario[0]['email'] == $email) && ($usuario[0]['senha'] == $senha)){
                     header("Location: /projeto_condominio/app/views");
                     exit;
                 }else{
-                    header("Location: /projeto_condominio/?error=Usuário ou senha invalido");
-                    exit;
+                    session_start();
+                    $_SESSION['error'] = "Usuário ou senha invalido";
+                    return false;
                 }
             }else{
-                header("Location: /projeto_condominio/?error=Não encontrado no banco");
-                exit;
+                session_start();
+                $_SESSION['error'] = "Usuário ou senha invalido";
+                return false;
             }
         }
     }
