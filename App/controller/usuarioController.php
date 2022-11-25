@@ -14,22 +14,23 @@
             $usuario = $tmp->fetchAll(\PDO::FETCH_ASSOC);
 
             if($email == null || $senha == null){
-                session_start();
                 $_SESSION['error'] = "Usuário ou senha não preenchidos";
                 return false;
             }
 
             if(isset($usuario[0]['email'])){
                 if(($usuario[0]['email'] == $email) && ($usuario[0]['senha'] == $senha)){
+                    session_unset();
+                    $_SESSION['user_id'] = $usuario[0]['id'];
                     header("Location: /projeto_condominio/app/views");
                     exit;
                 }else{
-                    session_start();
+                    
                     $_SESSION['error'] = "Usuário ou senha invalido";
                     return false;
                 }
             }else{
-                session_start();
+                
                 $_SESSION['error'] = "Usuário ou senha invalido";
                 return false;
             }
