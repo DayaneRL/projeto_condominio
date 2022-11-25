@@ -17,6 +17,9 @@
     <link href="adicionar-usuario.css" rel="stylesheet">
 </head>
 <body>
+    <?php 
+		require_once "../../../vendor/autoload.php";
+	?>
     <ul class="sidenav">
         <li><a href="/projeto_condominio/app/views">Início</a></li>
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
@@ -27,8 +30,20 @@
     <div class="content">
         <div class="card">
             <h3 class="title m-0">Cadastrar Usuario</h3>
-            <form action="" method="">
+
+            <?php
+                $controller = new \App\controller\usuarioController();
+                if (isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['numero']) && isset($_POST['senha']) && isset($_POST['confirmar-senha'])) {
+                    $controller->store();
+                }
+            ?>
+
+            <form action="" method="POST">
             <div class="row" id="usuario-form">
+                <?php if (isset($_SESSION['message'])) { ?>
+                    <p id="login-error"><?php echo $_SESSION['message']; ?></p>
+                <?php } ?>
+
                 <div class="col-12">
                     <label>Nome:</label>
                     <input type="text" name="nome" required/>
