@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['user_id'])){
+        header("Location: /projeto_condominio");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +26,7 @@
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
         <li><a href="/projeto_condominio/app/views/configuracao" class="active">Configuração</a></li>
         <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
-        <li><a href="#" id="logout">Sair</a></li>
+        <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">
         <div class="row">
@@ -87,5 +94,10 @@
             data: {id_casa, status_energia, status_agua},
         });
     })
+</script>
+<script>
+    function sair(){
+        window.location = '/projeto_condominio';
+    }
 </script>
 </html>

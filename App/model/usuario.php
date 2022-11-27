@@ -23,7 +23,7 @@
 		}
 
         public function getIdCasa(){
-            return $this->id;
+            return $this->id_casa;
         }
         public function setIdCasa($id_casa){
             $this->id_casa = $id_casa;

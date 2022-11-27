@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['user_id'])){
+        header("Location: /projeto_condominio");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
