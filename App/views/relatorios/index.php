@@ -4,6 +4,26 @@
         header("Location: /projeto_condominio");
         exit;
     }
+    
+    if(isset($_SESSION['user_id_casa']) && isset($_SESSION['user_tipo'])){
+        $id_casa = $_SESSION['user_tipo']=="Usuario"?$_SESSION['user_id_casa']:null;
+    }else{
+        $id_casa = null;
+    }
+
+    if(isset($_GET['filtro'])){
+        if($_GET['filtro']=="Semanal"){
+            $filtro = "Semana";
+            $titulo = "semanal";
+        }else if($_GET['filtro']=="Anual"){
+            $filtro = "Ano";
+            $titulo = "Anual";
+        }
+    }
+    if(!isset($_GET['filtro']) || $_GET['filtro']=="Mensal"){
+        $filtro = "Mês";
+        $titulo = "mensal";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,29 +40,18 @@
     <?php 
 		require_once "../../../vendor/autoload.php";
         $controller = new \App\controller\relatorioController();
-        //VERIFICAR SE EXISTE SESSAO E USUARIO
-        //SIM = MUDAR MENU E RELATORIOS PRA ID_CASA
-        //EXISTE SESSAO E ADMIN = GERAL
-        if(isset($_GET['filtro'])){
-            if($_GET['filtro']=="Semanal"){
-                $filtro = "Semana";
-                $titulo = "semanal";
-            }else if($_GET['filtro']=="Anual"){
-                $filtro = "Ano";
-                $titulo = "Anual";
-            }
-        }
-        if(!isset($_GET['filtro']) || $_GET['filtro']=="Mensal"){
-            $filtro = "Mês";
-            $titulo = "mensal";
-        }
-
 	?>
     <ul class="sidenav">
         <li><a href="/projeto_condominio/app/views">Início</a></li>
         <li><a class="active" href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
+        <?php
+            if($id_casa==null){
+        ?>
         <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
         <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
+        <?php
+            }
+        ?>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">
@@ -75,11 +84,10 @@
                 <tbody>
                     <?php
                         if($filtro=="Semana"){
-                            foreach($controller->relatorioAguaSemanal() as $row){
+                            foreach($controller->relatorioAguaSemanal($id_casa) as $row){
                                 $valor_agua = $row['consumo'] * 3.06;
                                 $semana_inicial = substr($row['semana_inicial'], 8, 2).'/'.substr($row['semana_inicial'], 5, 2);
                                 $semana_fim = substr($row['semana_fim'], 8, 2).'/'.substr($row['semana_fim'], 5, 2).' ('.substr($row['semana_fim'], 0, 4).')';
-    
                                 echo '<tr>
                                     <td style="width:120px">'.$row['id_casa'].'</td>
                                     <td style="width:220px">  '.$semana_inicial.' - '.$semana_fim.' </td>
@@ -88,7 +96,7 @@
                                 </tr>';
                             }
                         }else if($filtro=="Ano"){
-                            foreach($controller->relatorioAguaAnual() as $row){
+                            foreach($controller->relatorioAguaAnual($id_casa) as $row){
                                 $valor_agua = $row['consumo'] * 3.06;
                                 echo '<tr>
                                     <td style="width:120px">'.$row['id_casa'].'</td>
@@ -98,7 +106,7 @@
                                 </tr>';
                             }
                         }else if($filtro=="Mês"){
-                            foreach($controller->relatorioAguaMensal() as $row){
+                            foreach($controller->relatorioAguaMensal($id_casa) as $row){
                                 $valor_agua = $row['consumo'] * 3.06;
                                 echo '<tr>
                                     <td style="width:120px">'.$row['id_casa'].'</td>
@@ -124,11 +132,10 @@
                 <tbody>
                     <?php
                         if($filtro=="Semana"){
-                            foreach($controller->relatorioEnergiaSemanal() as $row){
+                            foreach($controller->relatorioEnergiaSemanal($id_casa) as $row){
                                 $valor_agua = $row['consumo'] * 3.06;
                                 $semana_inicial = substr($row['semana_inicial'], 8, 2).'/'.substr($row['semana_inicial'], 5, 2);
                                 $semana_fim = substr($row['semana_fim'], 8, 2).'/'.substr($row['semana_fim'], 5, 2).' ('.substr($row['semana_fim'], 0, 4).')';
-    
                                 echo '<tr>
                                     <td style="width:120px">'.$row['id_casa'].'</td>
                                     <td style="width:220px">  '.$semana_inicial.' - '.$semana_fim.' </td>
@@ -137,7 +144,7 @@
                                 </tr>';
                             }
                         }else if($filtro=="Ano"){
-                            foreach($controller->relatorioEnergiaAnual() as $row){
+                            foreach($controller->relatorioEnergiaAnual($id_casa) as $row){
                                 $valor_agua = $row['consumo'] * 3.06;
                                 echo '<tr>
                                     <td style="width:120px">'.$row['id_casa'].'</td>
@@ -147,7 +154,7 @@
                                 </tr>';
                             }
                         }else if($filtro=="Mês"){
-                            foreach($controller->relatorioEnergiaMensal() as $row){
+                            foreach($controller->relatorioEnergiaMensal($id_casa) as $row){
                                 $valor_agua = $row['consumo'] * 3.06;
                                 echo '<tr>
                                     <td style="width:120px">'.$row['id_casa'].'</td>

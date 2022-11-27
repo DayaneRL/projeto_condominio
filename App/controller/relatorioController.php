@@ -25,11 +25,18 @@ class relatorioController{
 		return[];	
 	}	
 
-	public function relatorioEnergiaMensal(){
-		$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
-				FROM energia_media a
-				GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
-				ORDER BY MES";
+	public function relatorioEnergiaMensal($id=null){
+		if($id){
+			$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
+					FROM energia_media a where id_casa = $id
+					GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
+					ORDER BY MES";
+		}else{
+			$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
+					FROM energia_media a
+					GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
+					ORDER BY MES";
+		}
 		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
 		$tmp->execute();
 
@@ -40,11 +47,18 @@ class relatorioController{
 		return[];	
 	}	
 
-	public function relatorioAguaAnual(){
-		$sql = "SELECT a.id_casa, SUM(a.valor) as consumo, YEAR(a.data) AS ANO
+	public function relatorioAguaAnual($id=null){
+		if($id){
+			$sql = "SELECT a.id_casa, SUM(a.valor) as consumo, YEAR(a.data) AS ANO
+				FROM agua_media a where id_casa = $id
+				GROUP BY a.ID_casa, YEAR(a.data)
+				order by ANO";
+		}else{
+			$sql = "SELECT a.id_casa, SUM(a.valor) as consumo, YEAR(a.data) AS ANO
 				FROM agua_media a
 				GROUP BY a.ID_casa, YEAR(a.data)
 				order by ANO";
+		}
 		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
 		$tmp->execute();
 
@@ -55,11 +69,18 @@ class relatorioController{
 		return[];	
 	}	
 	
-	public function relatorioEnergiaAnual(){
-		$sql = "SELECT a.id_casa, SUM(a.valor) as consumo, YEAR(a.data) AS ANO
+	public function relatorioEnergiaAnual($id=null){
+		if($id){
+			$sql = "SELECT a.id_casa, SUM(a.valor) as consumo, YEAR(a.data) AS ANO
+				FROM energia_media a where id_casa = $id
+				GROUP BY a.ID_casa, YEAR(a.data)
+				order by ANO";
+		}else{
+			$sql = "SELECT a.id_casa, SUM(a.valor) as consumo, YEAR(a.data) AS ANO
 				FROM energia_media a
 				GROUP BY a.ID_casa, YEAR(a.data)
 				order by ANO";
+		}
 		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
 		$tmp->execute();
 
@@ -70,13 +91,22 @@ class relatorioController{
 		return[];	
 	}	
 
-	public function relatorioEnergiaSemanal(){
-		$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
-		DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana_inicial,
-		DATE_ADD(a.data, INTERVAL(7-DAYOFWEEK(a.data)) DAY) as semana_fim
-		FROM energia_media a 
-		GROUP BY a.ID_casa, WEEK(a.data)
-		ORDER BY WEEK(a.data)";
+	public function relatorioEnergiaSemanal($id=null){
+		if($id){
+			$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
+			DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana_inicial,
+			DATE_ADD(a.data, INTERVAL(7-DAYOFWEEK(a.data)) DAY) as semana_fim
+			FROM energia_media a where id_casa = $id
+			GROUP BY a.ID_casa, WEEK(a.data)
+			ORDER BY WEEK(a.data)";
+		}else{
+			$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
+			DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana_inicial,
+			DATE_ADD(a.data, INTERVAL(7-DAYOFWEEK(a.data)) DAY) as semana_fim
+			FROM energia_media a 
+			GROUP BY a.ID_casa, WEEK(a.data)
+			ORDER BY WEEK(a.data)";
+		}
 		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
 		$tmp->execute();
 
@@ -87,13 +117,22 @@ class relatorioController{
 		return[];	
 	}
 	
-	public function relatorioAguaSemanal(){
-		$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
-		DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana_inicial,
-		DATE_ADD(a.data, INTERVAL(7-DAYOFWEEK(a.data)) DAY) as semana_fim
-		FROM agua_media a 
-		GROUP BY a.ID_casa, WEEK(a.data)
-		ORDER BY WEEK(a.data)";
+	public function relatorioAguaSemanal($id=null){
+		if($id){
+			$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
+			DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana_inicial,
+			DATE_ADD(a.data, INTERVAL(7-DAYOFWEEK(a.data)) DAY) as semana_fim
+			FROM agua_media a where id_casa = $id
+			GROUP BY a.ID_casa, WEEK(a.data)
+			ORDER BY WEEK(a.data)";
+		}else{
+			$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
+			DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana_inicial,
+			DATE_ADD(a.data, INTERVAL(7-DAYOFWEEK(a.data)) DAY) as semana_fim
+			FROM agua_media a 
+			GROUP BY a.ID_casa, WEEK(a.data)
+			ORDER BY WEEK(a.data)";
+		}
 		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
 		$tmp->execute();
 

@@ -4,6 +4,12 @@
         header("Location: /projeto_condominio");
         exit;
     }
+
+    if(isset($_SESSION['user_id']) && isset($_SESSION['user_tipo']) && $_SESSION['user_tipo']=="Admin"){
+        $admin = true;
+    }else{
+        $admin = false;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,24 +25,33 @@
     <ul class="sidenav">
         <li><a class="active" href="/projeto_condominio/app/views">Início</a></li>
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
+        <?php
+            if($admin){
+        ?>
         <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
         <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
+        <?php
+            }
+        ?>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">
         <div class="row">
             <div class="col-6 col-m-12">
                 <div class="card">
-                    <div class="img">
+                    <div class="center">
                         <img src="../images/report.png" alt="relatorio icon" />
                     </div>
                     <p class="title">Acessar relatorios mensais, semanais e anuais.</p>
                     <a href="/projeto_condominio/app/views/relatorios">VER relatorios</a>
                 </div>
             </div>
+            <?php
+            if($admin){
+            ?>
             <div class="col-3 col-m-6">
                 <div class="card">
-                    <div class="img">
+                    <div class="center">
                         <img src="../images/gear.png" alt="relatorio icon" />
                     </div>
                     <p class="title">Acessar configuração.</p>
@@ -45,13 +60,16 @@
             </div>
             <div class="col-3 col-m-6">
                 <div class="card">
-                    <div class="img">
+                    <div class="center">
                         <img src="../images/add-user.png" alt="relatorio icon" />
                     </div>
                     <p class="title">Acessar cadastro de usuários.</p>
                     <a href="/projeto_condominio/app/views/adicionar-usuario">acessar</a>
                 </div>
             </div>
+            <?php
+            }
+            ?>
         </div>
     </div>
     <div class="footer">

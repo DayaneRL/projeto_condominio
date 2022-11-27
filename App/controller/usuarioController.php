@@ -15,7 +15,7 @@
             $tmp->execute();
             
             // ADICIONA O RESULTADO DA CONSULTA EM UM ARRAY
-            $usuario = $tmp->fetchAll(\PDO::FETCH_ASSOC);
+            $usuario = $tmp->fetch(\PDO::FETCH_ASSOC);
 
             // VALIDA SE OS CAMPOS FORAM PREENCHIDOS
             if($u->getEmail() == null || $u->getSenha() == null){
@@ -24,10 +24,12 @@
             }
 
             // SE HOUVE RETORNO DO BANCO ? (VALIDA CAMPOS ? ENTRAR : RETORNA ERRO) : RETORNA ERRO
-            if(isset($usuario[0]['email'])){
-                if(($usuario[0]['email'] == $u->getEmail()) && ($u->getSenha())){
+            if(isset($usuario['email'])){
+                if(($usuario['email'] == $u->getEmail()) && ($u->getSenha())){
                     session_unset();
-                    $_SESSION['user_id'] = $usuario[0]['id'];
+                    $_SESSION['user_id'] = $usuario['id'];
+                    $_SESSION['user_id_casa'] = $usuario['id_casa'];
+                    $_SESSION['user_tipo'] = $usuario['tipo'];
                     header("Location: /projeto_condominio/app/views");
                     exit;
                 }else{
@@ -66,7 +68,7 @@
 
                 $_SESSION['message'] = "Cadastrado com sucesso";
                 header("Location: /projeto_condominio/app/views/adicionar-usuario");
-            } catch(PDOException $error){
+            } catch(\PDOException $error){
                 $_SESSION['message'] = "Erro no cadastro!!!";
                 return false;
             }
