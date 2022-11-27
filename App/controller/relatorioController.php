@@ -72,7 +72,8 @@ class relatorioController{
 
 	public function relatorioEnergiaSemanal(){
 		$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
-		DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana
+		DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana_inicial,
+		DATE_ADD(a.data, INTERVAL(7-DAYOFWEEK(a.data)) DAY) as semana_fim
 		FROM energia_media a 
 		GROUP BY a.ID_casa, WEEK(a.data)
 		ORDER BY WEEK(a.data)";
@@ -88,7 +89,8 @@ class relatorioController{
 	
 	public function relatorioAguaSemanal(){
 		$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
-		DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana
+		DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana_inicial,
+		DATE_ADD(a.data, INTERVAL(7-DAYOFWEEK(a.data)) DAY) as semana_fim
 		FROM agua_media a 
 		GROUP BY a.ID_casa, WEEK(a.data)
 		ORDER BY WEEK(a.data)";
