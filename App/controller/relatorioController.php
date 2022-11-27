@@ -2,14 +2,50 @@
 	namespace App\controller;
 	
 class relatorioController{
-
-	public function read(\App\model\Relatorio $r){
-		$sql = "select a.id_casa, a.quant_consumo as consumo_agua, b.quant_consumo as consumo_energia 
-        from agua a 
-        inner join energia b on a.id_casa = b.id_casa
-        where a.id_casa=?";
+	
+	public function relatorioAguaMensal($id=null){
+		if($id){//id_casa
+			$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
+			FROM agua_media a where id_casa = $id
+			GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
+			ORDER BY MES";
+		}else{//geral
+			$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
+				FROM agua_media a
+				GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
+				ORDER BY MES";
+		}
 		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
-        $tmp->bindValue(1, $r->getNumeroCasa());
+		$tmp->execute();
+
+		if($tmp->rowCount() > 0){
+			$result = $tmp->fetchAll(\PDO::FETCH_ASSOC);
+			return $result;
+		}
+		return[];	
+	}	
+
+	public function relatorioEnergiaMensal(){
+		$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
+				FROM energia_media a
+				GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
+				ORDER BY MES";
+		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
+		$tmp->execute();
+
+		if($tmp->rowCount() > 0){
+			$result = $tmp->fetchAll(\PDO::FETCH_ASSOC);
+			return $result;
+		}
+		return[];	
+	}	
+
+	public function relatorioAguaAnual(){
+		$sql = "SELECT a.id_casa, SUM(a.valor) as consumo, YEAR(a.data) AS ANO
+				FROM agua_media a
+				GROUP BY a.ID_casa, YEAR(a.data)
+				order by ANO";
+		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
 		$tmp->execute();
 
 		if($tmp->rowCount() > 0){
@@ -19,10 +55,11 @@ class relatorioController{
 		return[];	
 	}	
 	
-	public function relatorioGeral(){
-		$sql = "select a.id_casa, a.quant_consumo as consumo_agua, b.quant_consumo as consumo_energia 
-        from agua a 
-        inner join energia b on a.id_casa = b.id_casa";
+	public function relatorioEnergiaAnual(){
+		$sql = "SELECT a.id_casa, SUM(a.valor) as consumo, YEAR(a.data) AS ANO
+				FROM energia_media a
+				GROUP BY a.ID_casa, YEAR(a.data)
+				order by ANO";
 		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
 		$tmp->execute();
 
@@ -32,6 +69,38 @@ class relatorioController{
 		}
 		return[];	
 	}	
+
+	public function relatorioEnergiaSemanal(){
+		$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
+		DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana
+		FROM energia_media a 
+		GROUP BY a.ID_casa, WEEK(a.data)
+		ORDER BY WEEK(a.data)";
+		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
+		$tmp->execute();
+
+		if($tmp->rowCount() > 0){
+			$result = $tmp->fetchAll(\PDO::FETCH_ASSOC);
+			return $result;
+		}
+		return[];	
+	}
+	
+	public function relatorioAguaSemanal(){
+		$sql = "SELECT a.id_casa, sum(a.valor) as consumo, YEAR(a.data) as ano,
+		DATE_ADD(a.data, INTERVAL(1-DAYOFWEEK(a.data)) DAY) as semana
+		FROM agua_media a 
+		GROUP BY a.ID_casa, WEEK(a.data)
+		ORDER BY WEEK(a.data)";
+		$tmp = \App\model\Conexao::getConexao()->prepare($sql);
+		$tmp->execute();
+
+		if($tmp->rowCount() > 0){
+			$result = $tmp->fetchAll(\PDO::FETCH_ASSOC);
+			return $result;
+		}
+		return[];	
+	}
 
     public function update(\App\model\Relatorio $r){
 		$sql = "update usuario set nome=?, idade=? where id =?";

@@ -94,14 +94,19 @@ div.content {
 }
 
 
-.img{
+.center{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.img img{
-    width: 70px;
+.flex-align{
+    display: flex;
+    align-items: center;
+}
+
+.center img{
+    width: 75px;
 }
 
 .title{
@@ -124,4 +129,11 @@ div.content {
     background-color: #273142;
     border-radius: 5px;
     text-transform: uppercase;
+}
+.m-0{
+    margin: 0 !important;
+}
+
+.mt-1{
+    margin-top: 0.25rem !important;
 }
