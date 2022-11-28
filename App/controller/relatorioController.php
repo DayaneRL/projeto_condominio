@@ -5,12 +5,12 @@ class relatorioController{
 	
 	public function relatorioAguaMensal($id=null){
 		if($id){//id_casa
-			$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
+			$sql = "SELECT a.id_casa, sum(a.valor) as consumo, MONTH(a.data) as MES
 			FROM agua_media a where id_casa = $id
 			GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
 			ORDER BY MES";
 		}else{//geral
-			$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
+			$sql = "SELECT a.id_casa, sum(a.valor) as consumo, MONTH(a.data) as MES
 				FROM agua_media a
 				GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
 				ORDER BY MES";
@@ -27,12 +27,12 @@ class relatorioController{
 
 	public function relatorioEnergiaMensal($id=null){
 		if($id){
-			$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
+			$sql = "SELECT a.id_casa, sum(a.valor) as consumo, MONTH(a.data) as MES
 					FROM energia_media a where id_casa = $id
 					GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
 					ORDER BY MES";
 		}else{
-			$sql = "SELECT a.id_casa, a.valor as consumo, MONTH(a.data) as MES
+			$sql = "SELECT a.id_casa, sum(a.valor) as consumo, MONTH(a.data) as MES
 					FROM energia_media a
 					GROUP BY a.ID_casa, YEAR(a.data), MONTH(a.data)
 					ORDER BY MES";
