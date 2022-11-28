@@ -4,6 +4,10 @@
         header("Location: /projeto_condominio");
         exit;
     }
+    elseif($_SESSION['tipo'] === 'Usuario'){
+        header("Location: /projeto_condominio/App/views");
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

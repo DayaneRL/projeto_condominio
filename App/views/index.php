@@ -19,8 +19,10 @@
     <ul class="sidenav">
         <li><a class="active" href="/projeto_condominio/app/views">Início</a></li>
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
-        <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
-        <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
+        <?php if($_SESSION['tipo'] === 'Admin'){ ?>
+            <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
+            <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
+        <?php } ?>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">
@@ -34,24 +36,26 @@
                     <a href="/projeto_condominio/app/views/relatorios">VER relatorios</a>
                 </div>
             </div>
-            <div class="col-3 col-m-6">
-                <div class="card">
-                    <div class="img">
-                        <img src="../images/gear.png" alt="relatorio icon" />
+            <?php if($_SESSION['tipo'] === 'Admin'){ ?>
+                <div class="col-3 col-m-6">
+                    <div class="card">
+                        <div class="img">
+                            <img src="../images/gear.png" alt="relatorio icon" />
+                        </div>
+                        <p class="title">Acessar configuração.</p>
+                        <a href="/projeto_condominio/app/views/configuracao">Acessar</a>
                     </div>
-                    <p class="title">Acessar configuração.</p>
-                    <a href="/projeto_condominio/app/views/configuracao">Acessar</a>
                 </div>
-            </div>
-            <div class="col-3 col-m-6">
-                <div class="card">
-                    <div class="img">
-                        <img src="../images/add-user.png" alt="relatorio icon" />
+                <div class="col-3 col-m-6">
+                    <div class="card">
+                        <div class="img">
+                            <img src="../images/add-user.png" alt="relatorio icon" />
+                        </div>
+                        <p class="title">Acessar cadastro de usuários.</p>
+                        <a href="/projeto_condominio/app/views/adicionar-usuario">acessar</a>
                     </div>
-                    <p class="title">Acessar cadastro de usuários.</p>
-                    <a href="/projeto_condominio/app/views/adicionar-usuario">acessar</a>
                 </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
     <div class="footer">

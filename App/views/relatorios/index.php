@@ -23,8 +23,10 @@
     <ul class="sidenav">
         <li><a href="/projeto_condominio/app/views">Início</a></li>
         <li><a class="active" href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
-        <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
-        <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
+        <?php if($_SESSION['tipo'] === 'Admin'){ ?>
+            <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
+            <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
+        <?php } ?>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">

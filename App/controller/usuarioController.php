@@ -25,9 +25,10 @@
 
             // SE HOUVE RETORNO DO BANCO ? (VALIDA CAMPOS ? ENTRAR : RETORNA ERRO) : RETORNA ERRO
             if(isset($usuario[0]['email'])){
-                if(($usuario[0]['email'] == $u->getEmail()) && ($u->getSenha())){
+                if(($usuario[0]['email'] == $u->getEmail()) && ($usuario[0]['senha'] == $u->getSenha())){
                     session_unset();
                     $_SESSION['user_id'] = $usuario[0]['id'];
+                    $_SESSION['tipo'] = $usuario[0]['tipo'];
                     header("Location: /projeto_condominio/app/views");
                     exit;
                 }else{
