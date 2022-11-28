@@ -21,7 +21,7 @@
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
         <?php if($_SESSION['tipo'] === 'Admin'){ ?>
             <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
-            <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
+            <li><a href="/projeto_condominio/app/views/usuarios">Usuários</a></li>
         <?php } ?>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
@@ -51,8 +51,8 @@
                         <div class="img">
                             <img src="../images/add-user.png" alt="relatorio icon" />
                         </div>
-                        <p class="title">Acessar cadastro de usuários.</p>
-                        <a href="/projeto_condominio/app/views/adicionar-usuario">acessar</a>
+                        <p class="title">Acessar gerenciamento de usuários.</p>
+                        <a href="/projeto_condominio/app/views/usuarios">acessar</a>
                     </div>
                 </div>
             <?php } ?>

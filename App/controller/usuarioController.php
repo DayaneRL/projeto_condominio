@@ -55,7 +55,6 @@
             }
             
             try{
-                // $sql = "INSERT INTO usuario VALUE(:nome, :id_casa, NULL, :email, :senha);";
                 $sql = "INSERT INTO usuario (nome, id_casa, tipo, email, senha) VALUES (?,?,?,?,?)";
                 $tmp = \App\model\Conexao::getConexao()->prepare($sql);
                 $tmp->bindValue(1, $u->getNome());
@@ -71,6 +70,18 @@
                 $_SESSION['message'] = "Erro no cadastro!!!";
                 return false;
             }
+        }
+
+        public function show(){
+            $sql = "SELECT nome, email FROM usuario WHERE id != 1";
+            $tmp = \App\model\Conexao::getConexao()->prepare($sql);
+            $tmp->execute();
+
+            if($tmp->rowCount() > 0){
+                $result = $tmp->fetchAll(\PDO::FETCH_ASSOC);
+                return $result;
+            }
+            return[];
         }
     }
 ?>

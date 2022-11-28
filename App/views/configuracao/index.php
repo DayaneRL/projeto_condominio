@@ -25,7 +25,7 @@
         <li><a href="/projeto_condominio/app/views">Início</a></li>
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
         <li><a href="/projeto_condominio/app/views/configuracao" class="active">Configuração</a></li>
-        <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
+        <li><a href="/projeto_condominio/app/views/usuarios">Usuários</a></li>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">
