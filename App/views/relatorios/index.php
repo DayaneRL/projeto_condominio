@@ -5,8 +5,8 @@
         exit;
     }
     
-    if(isset($_SESSION['user_id_casa']) && isset($_SESSION['user_tipo'])){
-        $id_casa = $_SESSION['user_tipo']=="Usuario"?$_SESSION['user_id_casa']:null;
+    if(isset($_SESSION['user_id_casa']) && isset($_SESSION['tipo'])){
+        $id_casa = $_SESSION['tipo']=="Usuario"?$_SESSION['user_id_casa']:null;
     }else{
         $id_casa = null;
     }
@@ -44,14 +44,10 @@
     <ul class="sidenav">
         <li><a href="/projeto_condominio/app/views">Início</a></li>
         <li><a class="active" href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
-        <?php
-            if($id_casa==null){
-        ?>
-        <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
-        <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
-        <?php
-            }
-        ?>
+        <?php if($_SESSION['tipo'] === 'Admin'){ ?>
+            <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
+            <li><a href="/projeto_condominio/app/views/usuarios">Usuários</a></li>
+        <?php } ?>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">

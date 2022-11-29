@@ -25,11 +25,11 @@
 
             // SE HOUVE RETORNO DO BANCO ? (VALIDA CAMPOS ? ENTRAR : RETORNA ERRO) : RETORNA ERRO
             if(isset($usuario['email'])){
-                if(($usuario['email'] == $u->getEmail()) && ($u->getSenha())){
+                if(($usuario['email'] == $u->getEmail()) && ($usuario['senha'] == $u->getSenha())){
                     session_unset();
                     $_SESSION['user_id'] = $usuario['id'];
                     $_SESSION['user_id_casa'] = $usuario['id_casa'];
-                    $_SESSION['user_tipo'] = $usuario['tipo'];
+                    $_SESSION['tipo'] = $usuario['tipo'];
                     header("Location: /projeto_condominio/app/views");
                     exit;
                 }else{
@@ -56,7 +56,6 @@
             }
             
             try{
-                // $sql = "INSERT INTO usuario VALUE(:nome, :id_casa, NULL, :email, :senha);";
                 $sql = "INSERT INTO usuario (nome, id_casa, tipo, email, senha) VALUES (?,?,?,?,?)";
                 $tmp = \App\model\Conexao::getConexao()->prepare($sql);
                 $tmp->bindValue(1, $u->getNome());
@@ -67,11 +66,23 @@
                 $tmp->execute();
 
                 $_SESSION['message'] = "Cadastrado com sucesso";
-                header("Location: /projeto_condominio/app/views/adicionar-usuario");
+                header("Location: /projeto_condominio/app/views/usuarios");
             } catch(\PDOException $error){
                 $_SESSION['message'] = "Erro no cadastro!!!";
                 return false;
             }
+        }
+
+        public function show(){
+            $sql = "SELECT nome, email FROM usuario WHERE tipo != 'Admin'";
+            $tmp = \App\model\Conexao::getConexao()->prepare($sql);
+            $tmp->execute();
+
+            if($tmp->rowCount() > 0){
+                $result = $tmp->fetchAll(\PDO::FETCH_ASSOC);
+                return $result;
+            }
+            return[];
         }
     }
 ?>

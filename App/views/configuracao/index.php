@@ -4,14 +4,9 @@
         header("Location: /projeto_condominio");
         exit;
     }
-    if(isset($_SESSION['user_id']) && isset($_SESSION['user_tipo']) && $_SESSION['user_tipo']=="Admin"){
-        $admin = true;
-    }else{
-        $admin = false;
-        if($_SESSION['user_tipo']=="Usuario"){
-            header("Location: /projeto_condominio/app/views");
-            exit;
-        }
+    elseif($_SESSION['tipo'] === 'Usuario'){
+        header("Location: /projeto_condominio/App/views");
+        exit;
     }
 ?>
 <!DOCTYPE html>
@@ -33,14 +28,8 @@
     <ul class="sidenav">
         <li><a href="/projeto_condominio/app/views">Início</a></li>
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
-        <?php
-            if($admin){
-        ?>
         <li><a href="/projeto_condominio/app/views/configuracao" class="active">Configuração</a></li>
-        <li><a href="/projeto_condominio/app/views/adicionar-usuario">Cadastrar</a></li>
-        <?php
-            }
-        ?>
+        <li><a href="/projeto_condominio/app/views/usuarios">Usuários</a></li>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">

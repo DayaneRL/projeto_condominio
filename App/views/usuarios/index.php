@@ -4,14 +4,9 @@
         header("Location: /projeto_condominio");
         exit;
     }
-    if(isset($_SESSION['user_id']) && isset($_SESSION['user_tipo']) && $_SESSION['user_tipo']=="Admin"){
-        $admin = true;
-    }else{
-        $admin = false;
-        if($_SESSION['user_tipo']=="Usuario"){
-            header("Location: /projeto_condominio/app/views");
-            exit;
-        }
+    elseif($_SESSION['tipo'] === 'Usuario'){
+        header("Location: /projeto_condominio/App/views");
+        exit;
     }
 ?>
 <!DOCTYPE html>
@@ -23,7 +18,7 @@
     <title>Cadastrar Usuário</title>
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/responsive.css" rel="stylesheet">
-    <link href="adicionar-usuario.css" rel="stylesheet">
+    <link href="usuario.css" rel="stylesheet">
 </head>
 <body>
     <?php 
@@ -32,19 +27,13 @@
     <ul class="sidenav">
         <li><a href="/projeto_condominio/app/views">Início</a></li>
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
-        <?php
-            if($admin){
-        ?>
         <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
-        <li><a href="/projeto_condominio/app/views/adicionar-usuario" class="active">Cadastrar</a></li>
-        <?php
-            }
-        ?>
+        <li><a href="/projeto_condominio/app/views/usuarios" class="active">Usuários</a></li>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
     <div class="content">
         <div class="card">
-            <h3 class="title m-0">Cadastrar Usuario</h3>
+            <h3 class="title">Cadastrar Usuario</h3>
 
             <?php
                 $controller = new \App\controller\usuarioController();
@@ -82,6 +71,31 @@
                 <button id="send">Enviar</button>
             </div>
             </form>
+        </div>
+
+        <div class="card">
+            <h3 class="title">Listar Usuario</h3>
+            <table id="resume">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $controller = new \App\controller\usuarioController();
+                        foreach($controller->show() as $row){
+                            echo '
+                                <tr>
+                                    <td>'.$row['nome'].'</td>
+                                    <td>'.$row['email'].'</td>
+                                </tr>
+                            ';
+                        }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="footer">
