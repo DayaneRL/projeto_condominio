@@ -19,6 +19,7 @@
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/responsive.css" rel="stylesheet">
     <link href="usuario.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/9cd7366f7c.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <?php 
@@ -32,8 +33,8 @@
         <li><a href="/projeto_condominio/app/views/usuarios" class="active">Usuários</a></li>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>
-    <div class="content">
-        <div class="card">
+    <div class="content row">
+        <div class="card col-12 col-md-6">
             <h3 class="title">Cadastrar Usuario</h3>
 
             <?php
@@ -74,23 +75,37 @@
             </form>
         </div>
 
-        <div class="card">
+        <div class="card card col-12 col-md-6">
             <h3 class="title">Listar Usuario</h3>
             <table id="resume">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Nome</th>
                         <th>E-mail</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                         $controller = new \App\controller\usuarioController();
+                        if (isset($_POST['userId'])) {
+                            $controller->delete();
+                        }
                         foreach($controller->show() as $row){
                             echo '
                                 <tr>
+                                    <td>'.$row['id'].'</td>
                                     <td>'.$row['nome'].'</td>
                                     <td>'.$row['email'].'</td>
+                                    <td id="actions">
+                                        <form method="POST">
+                                            <input type="text" class="userId" name="userId" value="'.$row['id'].'" >
+                                            <button type="submit">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             ';
                         }

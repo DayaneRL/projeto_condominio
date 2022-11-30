@@ -65,7 +65,7 @@
                 $tmp->bindValue(5, $u->getSenha());
                 $tmp->execute();
 
-                $_SESSION['message'] = "Cadastrado com sucesso";
+                $_SESSION['message'] = null;
                 header("Location: /projeto_condominio/app/views/usuarios");
             } catch(\PDOException $error){
                 $_SESSION['message'] = "Erro no cadastro!!!";
@@ -74,7 +74,7 @@
         }
 
         public function show(){
-            $sql = "SELECT nome, email FROM usuario WHERE tipo != 'Admin'";
+            $sql = "SELECT id, nome, email FROM usuario WHERE tipo != 'Admin'";
             $tmp = \App\model\Conexao::getConexao()->prepare($sql);
             $tmp->execute();
 
@@ -83,6 +83,15 @@
                 return $result;
             }
             return[];
+        }
+
+        public function delete(){
+            $sql = "DELETE FROM usuario WHERE id = ?";
+            $tmp = \App\model\Conexao::getConexao()->prepare($sql);
+            $tmp->bindValue(1, $_POST['userId']);
+            $tmp->execute();
+
+            header("Location: /projeto_condominio/app/views/usuarios");
         }
     }
 ?>
