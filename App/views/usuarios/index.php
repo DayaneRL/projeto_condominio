@@ -28,6 +28,7 @@
         <li><a href="/projeto_condominio/app/views">Início</a></li>
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
         <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
+        <li><a href="/projeto_condominio/app/views/casas">Casas</a></li>
         <li><a href="/projeto_condominio/app/views/usuarios" class="active">Usuários</a></li>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>
     </ul>

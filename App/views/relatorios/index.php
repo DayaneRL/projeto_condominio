@@ -46,6 +46,7 @@
         <li><a class="active" href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
         <?php if($_SESSION['tipo'] === 'Admin'){ ?>
             <li><a href="/projeto_condominio/app/views/configuracao">Configuração</a></li>
+            <li><a href="/projeto_condominio/app/views/casas">Casas</a></li>
             <li><a href="/projeto_condominio/app/views/usuarios">Usuários</a></li>
         <?php } ?>
         <li><a href="#" id="logout" onclick="sair()">Sair</a></li>

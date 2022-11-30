@@ -1,0 +1,85 @@
+#error {
+    width: 99%;
+    padding: 7px 0 7px 0;
+    background-color: lightcoral;
+    border:0;
+    border-radius: 3px;
+    margin-left: 5px;
+    margin-right: 10px;
+    color:#fff;
+    text-align: center;
+    font-family: Verdana, sans-serif;
+}
+
+#form label{
+    font-family: Verdana, sans-serif;
+    padding: 0 5px;
+    margin: 5px;
+}
+
+#form .form-input{
+    color: #000;
+    font-size: 13px;
+    background-color: #e6e6e6;
+    width: 95%;
+    height: 32px;
+    padding: 0 5px;
+    margin: 5px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+#form .form-input:focus{
+    border: 1px solid #556270 !important;
+    border-radius: 3px;
+    outline:#556270;
+}
+
+#form .form-radio{
+    margin: 5px 0;
+    display: flex;
+    align-content: center;
+}
+
+#form .form-radio label{
+    min-width: 70px;
+}
+
+#send{
+    width: 99%;
+    height: 32px;
+    background-color: #e4a691;
+    border:0;
+    border-radius: 3px;
+    color:#fff;
+    -webkit-transition: all .4s;
+    -o-transition: all .4s;
+    -moz-transition: all .4s;
+    transition: all .4s;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin: 20px 5px 0 5px;
+}
+#send:hover{
+    background-color: #e4bbae  ;
+}
+
+.delete-btn{
+    width: 100px;
+    height: 32px;
+    background-color: #e4a691;
+    border:0;
+    border-radius: 3px;
+    color:#fff;
+    -webkit-transition: all .4s;
+    -o-transition: all .4s;
+    -moz-transition: all .4s;
+    transition: all .4s;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin: 0 5px;
+    font-size: 12px;
+}
+.delete-btn:hover{
+    background-color: #e4bbae  ;
+}
