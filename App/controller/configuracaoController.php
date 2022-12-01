@@ -4,7 +4,7 @@
 class configuracaoController{
 
     public function read(){
-        $sql = "SELECT * FROM casa";
+        $sql = "SELECT * FROM casa order by id_casa";
         $tmp = \App\model\Conexao::getConexao()->prepare($sql);
 		$tmp->execute();
 

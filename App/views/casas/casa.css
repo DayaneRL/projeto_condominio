@@ -65,9 +65,9 @@
 }
 
 .delete-btn{
-    width: 100px;
-    height: 32px;
-    background-color: #e4a691;
+    width: 50px;
+    height: 35px;
+    background-color: transparent;
     border:0;
     border-radius: 3px;
     color:#fff;
@@ -82,4 +82,13 @@
 }
 .delete-btn:hover{
     background-color: #e4bbae  ;
+}
+
+#actions {
+    display: flex;
+    justify-content: center;
+}
+
+#actions img{
+    width: 23px;
 }

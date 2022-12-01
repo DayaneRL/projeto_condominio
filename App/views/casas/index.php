@@ -18,6 +18,10 @@
     <link href="../configuracao/configuracao.css" rel="stylesheet">
 </head>
 <body>
+    <?php 
+		require_once "../../../vendor/autoload.php";
+        $controller = new \App\controller\casaController();
+    ?>
     <ul class="sidenav">
         <li><a href="/projeto_condominio/app/views">Início</a></li>
         <li><a href="/projeto_condominio/app/views/relatorios">Relatórios</a></li>
@@ -34,18 +38,19 @@
                 <div class="card">
                     <h3 class="title">Cadastrar Casa</h3>
                     <?php
-                        $controller = new \App\controller\casaController();
                         if (isset($_POST['numero']) && isset($_POST['status_agua']) && isset($_POST['status_energia']) ) {
                             $controller->cadastrar();
+                        }else if(isset($_POST['id_casa'])){
+                            $controller->delete();
                         }
                     ?>
                     <form action="" method="POST">
                     <div class="row" id="form">
                         <?php if (isset($_SESSION['message'])) { ?>
-                            <p id="login-error"><?php echo $_SESSION['message']; ?></p>
+                            <p id="error"><?php echo $_SESSION['message']; ?></p>
                         <?php 
-                            unset($_SESSION['message']);
-                            } 
+                        unset($_SESSION['message']);
+                        } 
                         ?>
 
                         <div class="col-12">
@@ -84,6 +89,8 @@
                         <thead>
                             <tr>
                                 <th>Numero</th>
+                                <th>Agua</th>
+                                <th>Energia</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
@@ -93,7 +100,16 @@
                                 echo '
                                     <tr>
                                         <td>'.$row['id_casa'].'</td>
-                                        <td><button type="submit" class="delete-btn">Excluir</button></td>
+                                        <td>'.(($row['status_agua']==1)?'On':'Off').'</td>
+                                        <td>'.(($row['status_energia']==1)?'On':'Off').'</td>
+                                        <td id="actions">
+                                            <form method="POST">
+                                                <input type="hidden" name="id_casa" value="'.$row['id_casa'].'" >
+                                                <button class="delete-btn" type="submit">
+                                                    <img src="../../images/excluir.png" alt="apagar">
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 ';
                             }
