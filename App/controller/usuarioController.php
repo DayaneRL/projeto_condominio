@@ -88,10 +88,42 @@
         public function delete(){
             $sql = "DELETE FROM usuario WHERE id = ?";
             $tmp = \App\model\Conexao::getConexao()->prepare($sql);
-            $tmp->bindValue(1, $_POST['userId']);
+            $tmp->bindValue(1, $_POST['userIdR']);
             $tmp->execute();
 
             header("Location: /projeto_condominio/app/views/usuarios");
+        }
+
+        public function edit(){
+            $sql = "select * from usuario where id = ?";
+            $tmp = \App\model\Conexao::getConexao()->prepare($sql);
+            $tmp->bindValue(1, $_POST['userIdU']);
+            $tmp->execute();
+
+            if($tmp->rowCount() > 0){
+                $result = $tmp->fetch(\PDO::FETCH_ASSOC);
+                return $result;
+            }
+            return[];
+        }
+
+        public function update(){
+            echo 'DEU CERTO :)';
+            // $u = new \App\model\Usuario;
+
+            // $sql = "update cliente set CPF_Cliente=:cpf_cliente, Nome_Cliente=:nome where ID_Cliente=:id;";
+        }
+
+        public function getAvailableHouse(){
+            $sql = "SELECT id_casa FROM casa WHERE id_casa NOT IN (SELECT id_casa FROM usuario)";
+            $tmp = \App\model\Conexao::getConexao()->prepare($sql);
+            $tmp->execute();
+
+            if($tmp->rowCount() > 0){
+                $result = $tmp->fetchAll(\PDO::FETCH_ASSOC);
+                return $result;
+            }
+            return[];
         }
     }
 ?>

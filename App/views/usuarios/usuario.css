@@ -97,10 +97,6 @@
     justify-content: center;
 }
 
-#resume td input {
-    display: none;
-}
-
 #resume td button {
     background: none;
 	color: inherit;
