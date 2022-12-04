@@ -19,7 +19,6 @@
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/responsive.css" rel="stylesheet">
     <link href="usuario.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/9cd7366f7c.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <?php 
@@ -62,7 +61,8 @@
                     <div class="row" id="usuario-form">
                         <?php if (isset($_SESSION['message'])) { ?>
                             <p id="login-error"><?php echo $_SESSION['message']; ?></p>
-                        <?php } ?>
+                        <?php unset($_SESSION['message']);
+                            }?>
 
                         <div class="col-12">
                             <label>Nome:</label>
@@ -152,19 +152,19 @@
                                         <td>'.$row['nome'].'</td>
                                         <td>'.$row['email'].'</td>
                                         <td id="actions">
-                                            <div id="remove">
-                                                <form method="POST">
-                                                    <input type="hidden" class="userId" name="userIdR" value="'.$row['id'].'" >
-                                                    <button type="submit">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
                                             <div id="update">
                                                 <form method="POST">
                                                     <input type="hidden" class="userId" name="userIdU" value="'.$row['id'].'" >
                                                     <button type="submit">
-                                                        <i class="fa fa-pencil"></i>
+                                                    <img src="../../images/editar.png" alt="editar">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div id="remove">
+                                                <form method="POST">
+                                                    <input type="hidden" class="userId" name="userIdR" value="'.$row['id'].'" >
+                                                    <button class="delete-btn" type="submit">
+                                                        <img src="../../images/excluir.png" alt="apagar">
                                                     </button>
                                                 </form>
                                             </div>

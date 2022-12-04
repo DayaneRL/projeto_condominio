@@ -31,7 +31,7 @@
     margin: 5px;
 }
 
-#usuario-form input{
+#usuario-form input, select{
     color: #000;
     font-size: 13px;
     background-color: #e6e6e6;
@@ -96,12 +96,26 @@
     display: flex;
     justify-content: center;
 }
+#actions img{
+    width: 21px;
+}
+
+#actions button{
+    width: 45px;
+    height: 30px;
+    border-radius: 3px;
+    transition: all .4s;
+    margin: 0 5px;
+    padding: 5px 0 2px 0;
+}
+#actions button:hover{
+    background-color: #e4bbae  ;
+}
 
 #resume td button {
     background: none;
 	color: inherit;
 	border: none;
-	padding: 0;
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
