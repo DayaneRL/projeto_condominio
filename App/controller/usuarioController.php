@@ -95,7 +95,7 @@
         }
 
         public function edit(){
-            $sql = "select * from usuario where id = ?";
+            $sql = "SELECT * FROM usuario WHERE id = ?";
             $tmp = \App\model\Conexao::getConexao()->prepare($sql);
             $tmp->bindValue(1, $_POST['userIdU']);
             $tmp->execute();
@@ -108,10 +108,37 @@
         }
 
         public function update(){
-            echo 'DEU CERTO :)';
-            // $u = new \App\model\Usuario;
+            $u = new \App\model\Usuario;
 
-            // $sql = "update cliente set CPF_Cliente=:cpf_cliente, Nome_Cliente=:nome where ID_Cliente=:id;";
+            $u->setNome($_POST['nome']);
+            $u->setIdCasa($_POST['numero']);
+            $u->setEmail($_POST['email']);
+            $u->setSenha($_POST['senha']);
+
+            if($u->getSenha() != $_POST['confirmar-senha']){
+                $_SESSION['message'] = "Senhas devem ser identicas!!!";
+                return false;
+            }
+
+            try{
+                $sql = "UPDATE usuario SET nome=?, id_casa=?, email=?, senha=? WHERE id=?;";
+
+                $tmp = \App\model\Conexao::getConexao()->prepare($sql);
+
+                $tmp->bindValue(1, $u->getNome());
+                $tmp->bindValue(2, $u->getIdCasa());
+                $tmp->bindValue(3, $u->getEmail());
+                $tmp->bindValue(4, $u->getSenha());
+                $tmp->bindValue(5, $_POST['userId']);
+
+                $tmp->execute();
+
+                $_SESSION['message'] = 'Alterado com sucesso!!!';
+                header("Location: /projeto_condominio/app/views/usuarios");
+            } catch(\PDOException $error){
+                $_SESSION['message'] = "Erro na atualização!!!";
+                return false;
+            }
         }
 
         public function getAvailableHouse(){

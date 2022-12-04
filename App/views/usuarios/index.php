@@ -41,8 +41,14 @@
                     $controller = new \App\controller\usuarioController();
                     if (isset($_POST['userIdU'])) {
                         $datas = $controller->edit();
-
-                        if (isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['numero']) && isset($_POST['senha']) && isset($_POST['confirmar-senha'])) {
+                    }
+                    
+                    if(isset($_POST['update'])){
+                        if (isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['numero'])) {
+                            if($_POST['senha'] == "" && $_POST['confirmar-senha'] == ""){
+                                $_POST['senha'] = $datas['senha'];
+                                $_POST['confirmar-senha'] = $datas['senha'];
+                            }
                             echo $controller->update();
                         }
                     }else{
@@ -53,60 +59,71 @@
                 ?>
     
                 <form action="" method="POST">
-                <div class="row" id="usuario-form">
-                    <?php if (isset($_SESSION['message'])) { ?>
-                        <p id="login-error"><?php echo $_SESSION['message']; ?></p>
-                    <?php } ?>
+                    <div class="row" id="usuario-form">
+                        <?php if (isset($_SESSION['message'])) { ?>
+                            <p id="login-error"><?php echo $_SESSION['message']; ?></p>
+                        <?php } ?>
 
-                    <div class="col-12">
-                        <label>Nome:</label>
-                        <input type="text" name="nome" value="<?php 
-                            if(isset($datas['nome'])){
-                                echo $datas['nome'];
-                            }
-                        ?>" required/>
-                    </div>
-                    <div class="col-12">
-                        <label>Email:</label>
-                        <input type="email" name="email" value="<?php 
-                            if(isset($datas['email'])){
-                                echo $datas['email'];
-                            }
-                        ?>" required/>
-                    </div>
-                    <div class="col-12">
-                        <label for="houses">Número da casa:</label>
-                        <select name="numero" id="houses">
-                            <?php 
+                        <div class="col-12">
+                            <label>Nome:</label>
+                            <input type="text" name="nome" value="<?php 
                                 if(isset($datas['nome'])){
-                                    echo '<option value="'.$datas['id_casa'].'">'.$datas['id_casa'].'</option>';
-                                }else{
-                                    $houses = $controller->getAvailableHouse();
-                                    foreach($houses as $house){
-                                        echo '<option value="'.$house['id_casa'].'">'.$house['id_casa'].'</option>';
-                                    }
+                                    echo $datas['nome'];
                                 }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <label>Senha:</label>
-                        <?php if(isset($_POST['userIdU'])){
-                            echo '<input type="password" name="senha" />';
-                        }else{
-                            echo '<input type="password" name="senha" required/>';
+                            ?>" required/>
+                        </div>
+                        <div class="col-12">
+                            <label>Email:</label>
+                            <input type="email" name="email" value="<?php 
+                                if(isset($datas['email'])){
+                                    echo $datas['email'];
+                                }
+                            ?>" required/>
+                        </div>
+                        <div class="col-12">
+                            <label for="houses">Número da casa:</label>
+                            <select name="numero" id="houses">
+                                <?php 
+                                    if(isset($datas['nome'])){
+                                        echo '<option value="'.$datas['id_casa'].'">'.$datas['id_casa'].'</option>';
+                                        $houses = $controller->getAvailableHouse();
+                                        foreach($houses as $house){
+                                            echo '<option value="'.$house['id_casa'].'">'.$house['id_casa'].'</option>';
+                                        }
+                                    }else{
+                                        $houses = $controller->getAvailableHouse();
+                                        foreach($houses as $house){
+                                            echo '<option value="'.$house['id_casa'].'">'.$house['id_casa'].'</option>';
+                                        }
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label>Senha:</label>
+                            <?php if(isset($_POST['userIdU'])){
+                                echo '<input type="password" name="senha" />';
+                            }else{
+                                echo '<input type="password" name="senha" required/>';
+                            } ?>
+                        </div>
+                        <div class="col-12">
+                            <label>Confirmar senha:</label>
+                            <?php if(isset($_POST['userIdU'])){
+                                echo '<input type="password" name="confirmar-senha"/>';
+                            }else{
+                                echo '<input type="password" name="confirmar-senha" required/>';
+                            } ?>
+                        </div>
+                        <?php if (isset($_POST['userIdU'])){ ?>
+                            <input type="hidden" value="update" name="update">
+                        <?php 
+                            if(isset($datas['id'])){
+                                echo '<input type="hidden" name="userId" value="'.$datas['id'].'" >';
+                            }
                         } ?>
+                        <button id="send">Enviar</button>
                     </div>
-                    <div class="col-12">
-                        <label>Confirmar senha:</label>
-                        <?php if(isset($_POST['userIdU'])){
-                            echo '<input type="password" name="confirmar-senha"/>';
-                        }else{
-                            echo '<input type="password" name="confirmar-senha" required/>';
-                        } ?>
-                    </div>
-                    <button id="send">Enviar</button>
-                </div>
                 </form>
             </div>
     
