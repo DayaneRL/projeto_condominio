@@ -47,8 +47,10 @@
             <div class="row" id="usuario-form">
                 <?php if (isset($_SESSION['message'])) { ?>
                     <p id="login-error"><?php echo $_SESSION['message']; ?></p>
-                <?php } ?>
-
+                <?php 
+                    unset($_SESSION['message']);
+                    } 
+                ?>
                 <div class="col-12">
                     <label>Nome:</label>
                     <input type="text" name="nome" required/>

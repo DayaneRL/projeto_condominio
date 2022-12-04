@@ -46,10 +46,10 @@
                     ?>
                     <form action="" method="POST">
                     <div class="row" id="form">
-                        <?php if (isset($_SESSION['message'])) { ?>
-                            <p id="error"><?php echo $_SESSION['message']; ?></p>
+                        <?php if (isset($_SESSION['mensagem_casa'])) { ?>
+                            <p id="error"><?php echo $_SESSION['mensagem_casa']; ?></p>
                         <?php 
-                        unset($_SESSION['message']);
+                        unset($_SESSION['mensagem_casa']);
                         } 
                         ?>
 

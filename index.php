@@ -30,7 +30,10 @@
 
                 <?php if (isset($_SESSION['error'])) { ?>
                     <p class="login-error"><?php echo $_SESSION['error']; ?></p>
-                <?php } ?>
+                <?php 
+                    unset($_SESSION['error']);
+                    } 
+                ?>
 
                 <div class="wrap-input" data-validate="Username is required">
                     <input class="input" type="text" name="username" placeholder="Username">

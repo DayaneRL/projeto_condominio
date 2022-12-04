@@ -14,7 +14,7 @@
                 $tmp = \App\model\Conexao::getConexao()->prepare($sqlCheck);
                 $tmp->execute();
                 if($tmp->rowCount() > 0){
-                    $_SESSION['message'] = "Casa já existente, por favor insira outro número";
+                    $_SESSION['mensagem_casa'] = "Casa já existente, por favor insira outro número";
                     return false;
                 }
 
@@ -24,7 +24,7 @@
                 $tmp = \App\model\Conexao::getConexao()->prepare($sql);
                 $tmp->execute();
             }else{
-                $_SESSION['message'] = 'Preencha todos os campos';
+                $_SESSION['mensagem_casa'] = 'Preencha todos os campos';
             }
         }
 

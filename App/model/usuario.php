@@ -7,12 +7,17 @@
 		private $tipo;
 		private $email;
 		private $senha;
+		private $salt= "UKDH9H2965pYRlU";
 
         public function getId(){
 			return $this->id;
 		}
 		public function setId($id){
 			$this->id = $id;
+		}
+
+		public function getSalt(){
+			return $this->salt;
 		}
 
         public function getNome(){
